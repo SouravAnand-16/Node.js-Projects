@@ -5,13 +5,8 @@ const {SuperheroModel} = require("../databaseConnection");
 const router = express.Router();
 
 router.get("/",async(req,res)=>{
-     let query = {};
-     if(req.params.id){
-        query.id = req.params.id;
-     }
     try{
-        console.log(query);
-        const superhero = await SuperheroModel.find(query);
+        const superhero = await SuperheroModel.find();
         res.status(200).send({superhero});
     }catch(error){
         res.status(500).send("Cannot found Superhero");

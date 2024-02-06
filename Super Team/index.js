@@ -14,6 +14,7 @@ app.get("/",(req,res)=>{
 
 app.use("/superhero",superheroRouter);
 app.use("/superhero/:id",superheroRouter);
+
 app.listen(3000,async()=>{
   try{
     await connection ;
