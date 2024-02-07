@@ -1,12 +1,21 @@
 const StudentModel = require("../model/studentModel");
+const bcrypt = require("bcrypt");
+
+const saltRounds = 5 ;
 const studentValidator = async(req,res,next)=>{
+        const {email,pass,...payload} = req.body ;
   try{
-       const {email} = req.body ;
-       console.log(email);
+       console.log(`Email is : ${email} and password is : ${pass} and payload is : ${payload}`);
        const student = await StudentModel.findOne({email});
-       console.log(student);
+       console.log("Got existing student from DB:",student);
+       console.log("calling password convertor");
+       const hashedPassword = await passCoverter(pass);
+       console.log("Got hashed password");
        if(!student){
-        console.log("calling next");
+          const student = new StudentModel({email,pass:hashedPassword,payload});
+          await student.save();
+          console.log("Saved new student to the database");
+          console.log("calling next");
           next();
        }else{
            res.status(500).send(`Already exist with ${email}, Please do login in..`);
@@ -16,4 +25,14 @@ const studentValidator = async(req,res,next)=>{
   }
 }
 
-module.exports = studentValidator ;
+const passCoverter = async(pass)=>{
+         try{
+            const hash = bcrypt.hashSync(pass, saltRounds);
+            console.log("Hashed password is : ",hash);
+            return hash ;
+         }catch(error){
+              console.log(error);
+         }
+}
+
+module.exports = studentValidator ;   

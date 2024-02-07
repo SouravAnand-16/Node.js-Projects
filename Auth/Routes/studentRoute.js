@@ -14,12 +14,12 @@ studentRouter.get("/",async(req,res)=>{
     }
 })
 
-studentRouter.post("/register",studentValidator,async(req,res)=>{
+studentRouter.post("/register",studentValidator,(req,res)=>{
         try{
-            const payload = req.body ;
-            console.log(payload);
-            const student = new StudentModel(payload);
-            await student.save();
+            // const payload = req.body ;
+            // console.log(payload);
+            // const student = new StudentModel(payload);
+            // await student.save();
             res.status(200).send("Registration successful");
         }catch(error){
            res.status(500).send("Error while registering");
