@@ -14,7 +14,7 @@ const studentLoginValidator = async(req,res,next)=>{
             if(hash){
                     next() ;
             }else{
-                res.status(401).send({"message":"Sorry wrong username of password"});
+                res.status(401).send({"message":"Sorry wrong password...!"});
             }
         }    
    }catch(error){
