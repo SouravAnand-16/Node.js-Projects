@@ -25,8 +25,7 @@ studentRouter.post("/register",studentValidator,(req,res)=>{
 
 studentRouter.post("/login",studentLoginValidator,async(req,res)=>{
        try{
-        res.status(200).send("Logged in Successfully");
-            
+        res.status(200).send({"token": 1234, "message": "Login Successful"});     
        }catch(error){
             res.status(500).send("Error while logging !");
        }

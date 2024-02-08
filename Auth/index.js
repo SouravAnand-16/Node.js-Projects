@@ -19,9 +19,9 @@ app.get("/",(req,res)=>{
 })
 
 
-app.listen(3000,async()=>{
+app.listen(8080,async()=>{
     try{
-        console.log(`Server is running at http://localhost:${3000}`);
+        console.log(`Server is running at http://localhost:${8080}`);
         console.log("Server is connected to database");
     }catch(error){
         console.log(error);
