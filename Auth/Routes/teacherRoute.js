@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const TeacherModel = require("../model/teacherModel");
 const teacherValidator = require("../middleware/teacherValidator");
 const teacherLoginValidator = require("../middleware/teacherLoginValidator");
+const authorization = require("../middleware/authhorization");
 
 const teacherRouter = express.Router() ;
 
@@ -28,22 +29,19 @@ teacherRouter.post("/register",teacherValidator,async(req,res)=>{
 teacherRouter.post("/login",teacherLoginValidator,async(req,res)=>{
         try{
               const {email} = req.body ;
-              const token = jwt.sign({"foo":"bar"},"masai");
+              const teacher = await TeacherModel.findOne({email});
+              console.log("teachers data:",teacher);
+              const token = jwt.sign({"username":teacher.name},"masai");
               res.status(200).send({"email":email,"acessToken":token});
         }catch(error){
             res.status(500).send("Error while logging");
         }
 })
 
-teacherRouter.post("/teachers-data",(req,res)=>{
+teacherRouter.post("/teachers-data",authorization,(req,res)=>{
         try{
-            const token = req.headers.authorization?.split(" ")[1] ;
-            console.log(token);
-            if(token===1234){
-                    res.status(200).send({"message":"Token granted as well as Restricted Routed granted...."});
-            }else{
-                res.status(500).send({"message":"You are not Authorized...??"});
-            }
+            const user = req.user ;
+             res.status(200).send(`Hello , ${user.username} you have been authorized...!`);
         }catch(error){
             console.log("Error while verying token",error);
         }
