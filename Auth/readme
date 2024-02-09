@@ -1,0 +1,18 @@
+Necessary packages require for testing :
+
+steps:
+
+1 . npm init -y 
+
+2.  npm install express mongoose jsonwebtoken cors bcrypt 
+
+3. Import them ..
+
+4. connect MongoDB Atlas with my url .
+
+5. node index.js (will run the server at backend).
+
+6. Use POSTMAN for testing purpose.
+
+Note : JWT only implemented for teachers thus use teachers route only(such as : /teacher , /teacher/login , /teacher/register , /teachre/teachers-data) for this purpose .
+ teacher/teachres-data is restricted only authorized to the authenticated teacher .
