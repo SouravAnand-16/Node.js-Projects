@@ -1,18 +1,19 @@
-
-const UserModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 
-const saltRounds = process.env.SaltRound ;
+const UserModel = require("../models/userModel");
+
+const saltRounds = parseInt(process.env.SaltRound) ;
 
 const userRegisterValidator = async(req,res,next)=>{
     try{
-        const { email,pass } = req.body ;
-        console.log(`Email is : ${email} and password is : ${pass}`);
+        console.log(req.body);
+        const {email,pass} = req.body ;
+        console.log(`Email is : ${email}`);
         const user = await UserModel.findOne({email});
+        const hashedPass = await convertPassword(pass);
         if(user){
             res.status(404).send(`user already exist with ${email}. Please do login...`);
         }else{
-            const hashedPass = await convertPassword(pass);
             const user = new UserModel({...req.body,pass:hashedPass}); 
             await user.save();
             next();
