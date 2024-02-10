@@ -1,19 +1,22 @@
 const express = require("express") ;
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const {connection} = require("./connection") ;
-const router = require("./routes/blogRoutes");
+const {router} = require("./routes/blogRoutes");
 
 const app = express() ;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+
 
 app.get("/",(req,res)=>{
     res.status(200).send(`<h1>Welcome to Blogging App....</h1>`);
 })
 
-app.use("/blog",router);
+app.use("/blogApp",router);
 
 app.listen(3000,async(req,res)=>{
     try{
