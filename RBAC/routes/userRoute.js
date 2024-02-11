@@ -24,4 +24,5 @@ UserRouter.post("/login",loginValidator,async(req,res)=>{
 
 
 
+
 module.exports = UserRouter ;

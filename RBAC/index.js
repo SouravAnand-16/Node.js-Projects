@@ -5,6 +5,7 @@ const { connection } = require("./connection");
 const UserRouter = require("./routes/userRoute");
 const UserModel = require("./model/userModel");
 const auth = require("./middleware/auth");
+const roleAccess = require("./middleware/roleAcess");
 
 const PORT = process.env.PORT ;
 const app = express();
@@ -19,8 +20,9 @@ app.get("/",(req,res)=>{
 
 app.use("/user",UserRouter);
 
-app.delete("/user/:id",auth,async(req,res)=>{
+app.delete("/user/:id",auth,roleAccess("SuperAdmin","Admin"),async(req,res)=>{
     try{
+        console.log("role is :",req.role);
         const userId = req.params.id ;
         console.log("userid is :",userId);
         await UserModel.findByIdAndDelete(userId);
