@@ -17,9 +17,8 @@ const auth = async(req,res,next)=>{
                     return res.status(400).send({"msg":"Token is blacklisted. Please login again...."});
                 }
                 const decode = jwt.verify(token,secretKey);
-                console.log(decode);
                 req.body.userID = decode.userId ;
-                req.body.username = decode.username ;
+                req.body.author = decode.username ;
                 next();
             }catch(error){
               res.status(500).send({"msg":error.message});
