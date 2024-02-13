@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const connection = require("./connection");
 const UserRouter = require("./routes/userRoute");
+const NoteRouter = require("./routes/noteRoute");
 
 const PORT = process.env.PORT ;
 
@@ -14,6 +15,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/user",UserRouter);
+app.use("/note",NoteRouter);
 
 app.listen(PORT,async(req,res)=>{
     try{
