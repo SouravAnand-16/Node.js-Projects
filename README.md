@@ -6,4 +6,4 @@ Harnessing the power of Express.js, I've implemented JWT authentication and bcry
  <hr>
  <h5>Tech Stack used : Node.js , Express , MongoDB , MongoDB Atlas </h5>
 
- Deployed Link : https://lime-gharial-tie.cyclic.app/
+ Deployed Link : deploy-backend-ia8o.onrender.com/
